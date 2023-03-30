@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -30,5 +31,19 @@ public class Products {
     @JoinColumn(name="categories_id")
     private Categories  categories;
 
+
+    @ManyToMany
+    @JoinTable(name= "products_characteristics", joinColumns = @JoinColumn(name ="product_id"), inverseJoinColumns = @JoinColumn(name ="characteristics_id")
+    )
+    private List<Characteristics> characteristics;
+    // O set? Cual es mejor para este caso?
+
+    @ManyToOne(cascade = CascadeType.DETACH)
+    @JoinColumn(name="cities_id")
+    private Cities cities;
+
+    @OneToMany(cascade = CascadeType.DETACH)
+    @JoinColumn(name ="images_id")
+    private List<Images> images;
 
 }
