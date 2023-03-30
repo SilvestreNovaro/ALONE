@@ -2,6 +2,7 @@ package com.alone.demo.controller;
 
 
 import com.alone.demo.entities.Categories;
+import com.alone.demo.entities.Characteristics;
 import com.alone.demo.service.CategoriesService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -32,10 +33,10 @@ public class CategoryController {
 
    @PostMapping("/add")
     public ResponseEntity<?> add (@RequestBody Categories categories){
-       String title = categories.getTitle();
-       Optional<Categories> optionalCategories = categoriesService.findByTitle(title);
+       //String title = categories.getTitle();
+       Optional<Categories> optionalCategories = categoriesService.findByTitle(categories.getTitle());
        if(optionalCategories.isPresent()){
-           return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Title " + title + " is already on our registers");
+           return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Title " + categories.getTitle()+ " is already on our registers");
        }
        categoriesService.add(categories);
        return ResponseEntity.status(HttpStatus.CREATED).body("Categorie added succesfully!");
@@ -45,7 +46,13 @@ public class CategoryController {
 
    @PutMapping("/modify/{id}")
     public ResponseEntity<?> update(@RequestBody Categories categories, @PathVariable Long id){
+       Optional<Categories> sameNameCategory = categoriesService.findByTitle(categories.getTitle());
        Optional<Categories> categoriesOptional = categoriesService.findById(id);
+
+       if(sameNameCategory.isPresent()){
+           return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The category with the name  " + categories.getTitle()+ " is already on our registers");
+       }
+
        if(categoriesOptional.isPresent()){
            categoriesService.updateCategory(categories, id);
            return ResponseEntity.status(HttpStatus.CREATED).body("The category " + categories.getTitle()+ " has been updated!");
