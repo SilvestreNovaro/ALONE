@@ -39,5 +39,12 @@ public class ProductsService {
     }
 
 
+    public Optional<Products> findByName(String name){
+       return productRepository.findByName(name);
+    }
 
+
+    public Optional<Products> findById(Long id) {
+        return productRepository.findById(id);
+    }
 }
