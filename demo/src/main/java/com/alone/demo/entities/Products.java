@@ -22,4 +22,8 @@ public class Products {
     private String name;
     @Column
     private String description;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name ="id_categories", referencedColumnName = "id")
+    private Categories categories;
 }

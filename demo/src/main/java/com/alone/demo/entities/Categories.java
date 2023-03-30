@@ -27,4 +27,5 @@ public class Categories {
     private String urlImage;
 
 
+
     }
