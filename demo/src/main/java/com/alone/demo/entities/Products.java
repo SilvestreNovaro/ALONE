@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -17,13 +19,16 @@ public class Products {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private Long id;
-    @Column
+    @Column(name="name")
     private String name;
-    @Column
+    @Column(name="description")
     private String description;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name ="id_categories", referencedColumnName = "id")
-    private Categories categories;
+    @ManyToOne(cascade = CascadeType.DETACH)
+    @JoinColumn(name="categories_id")
+    private Categories  categories;
+
+
 }

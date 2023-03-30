@@ -2,7 +2,6 @@ package com.alone.demo.controller;
 
 
 import com.alone.demo.entities.Products;
-import com.alone.demo.repository.ProductRepository;
 import com.alone.demo.service.ProductsService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,11 +24,10 @@ public class ProductController {
     private final ProductsService productsService;
 
 
-    @GetMapping("/lists")
-    public List<Products> List(){
+    @GetMapping("/list")
+    public List<Products> list(){
         return productsService.list();
     }
-
 
     @PostMapping("/add")
     public ResponseEntity <?> add (@RequestBody Products products){
