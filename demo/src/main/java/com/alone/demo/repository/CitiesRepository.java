@@ -11,4 +11,7 @@ public interface CitiesRepository extends JpaRepository <Cities, Long> {
 
     @Query("select c from Cities c where c.name = ?1")
     public Optional<Cities> findByName(String name);
+
+    @Query("select c from Cities c where c.country = ?1")
+    public Optional<Cities> findByCountry(String name);
 }

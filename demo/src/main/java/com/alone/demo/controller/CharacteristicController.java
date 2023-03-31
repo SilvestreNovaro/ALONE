@@ -56,4 +56,15 @@ public class CharacteristicController {
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Characteristic with the id  " + id + " does not exist on our registers");
     }
+
+
+    @DeleteMapping("delete/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id){
+        Optional <Characteristics> optionalCharacteristics = characteristicsService.findById(id);
+        if(optionalCharacteristics.isPresent()){
+            characteristicsService.delete(id);
+            return ResponseEntity.status(HttpStatus.OK).body("Characteristic with id " + id + " deleted");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Theres no characteristic with the id " + id);
+    }
 }
